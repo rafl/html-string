@@ -13,7 +13,7 @@ sub new {
             FACTORY => 'HTML::String::TT::Directive'
         ),
         STASH => Template::Stash->new,
-        @_
+        (ref($_[0]) eq 'HASH' ? %{$_[0]} : @_)
     );
 }
 
