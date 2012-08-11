@@ -23,4 +23,9 @@ is(
     '<tag>Hi &lt;bob&gt;</tag>',
 );
 
+is(
+    do_tt('<tag>[% foo | no_escape %]</tag>', { foo => 'Hi <bob>' }),
+    '<tag>Hi <bob></tag>',
+);
+
 done_testing;

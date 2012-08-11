@@ -44,7 +44,15 @@ use overload
 sub new {
     my ($class, @raw_parts) = @_;
 
-    my @parts = map { ref($_) eq 'ARRAY' ? $_ : [$_] } @raw_parts;
+    my @parts = map {
+        if (ref($_) eq 'ARRAY') {
+            $_
+        } elsif ($_->$_isa(__PACKAGE__)) {
+            @{$_->{parts}}
+        } else {
+            [ $_, 0 ]
+        }
+    } @raw_parts;
 
     my $self = bless { parts => \@parts }, $class;
 
