@@ -11,7 +11,7 @@ is("$one", '<tag>Hi &lt;bob&gt;</tag>');
 my $two = do {
   use HTML::String::Overload;
 
-  "<tag>${hi}</tag>"
+  "<tag>${hi}</tag>";
 };
 
 is("$two", '<tag>Hi &lt;bob&gt;</tag>');

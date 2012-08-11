@@ -23,6 +23,7 @@ use overload
     '""'   => 'escaped_string',
     '.'    => 'dot',
     '.='   => 'dot_equals',
+    '='    => 'clone',
 
     'cmp' => op_factory('cmp'),
     'eq'  => op_factory('eq'),
@@ -107,6 +108,12 @@ sub dot_equals {
     push @{$self->{parts}}, @new_parts;
 
     return $self;
+}
+
+sub clone {
+    my $self = shift;
+
+    return ref($self)->new(@{$self->{parts}});
 }
 
 1;
