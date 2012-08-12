@@ -35,4 +35,16 @@ chomp($four);
 
 is("$four", '<tag>Hi &lt;bob&gt;</tag>');
 
+{
+    package MyPkg;
+
+    sub new { 'foo' }
+
+    sub load { 'bar' }
+}
+
+is(html('MyPkg')->new, 'foo');
+
+is(html('MyPkg')->load, 'bar');
+
 done_testing;

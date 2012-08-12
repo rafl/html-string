@@ -6,14 +6,15 @@ use Safe::Isa;
 use Data::Munge;
 
 use overload
-    '""'   => 'escaped_string',
-    '.'    => 'dot',
-    'bool' => 'is_true',
+    '""'   => '_hsv_escaped_string',
+    '.'    => '_hsv_dot',
+    'bool' => '_hsv_is_true',
 
     fallback => 1,
 ;
 
 sub new {
+    if (ref($_[0])) { my $c = shift; return $c->_hsv_unescaped_string->new(@_) }
     my ($class, @raw_parts) = @_;
 
     my $opts = (ref($raw_parts[-1]) eq 'HASH') ? pop(@raw_parts) : {};
@@ -33,11 +34,19 @@ sub new {
     return $self;
 }
 
-sub escaped_string {
+sub AUTOLOAD {
+    my $invocant = shift;
+    (my $meth = our $AUTOLOAD) =~ s/.*:://;
+    die "No such method ${meth} on ${invocant}"
+        unless ref($invocant);
+    return $invocant->_hsv_unescaped_string->$meth(@_);
+}
+
+sub _hsv_escaped_string {
     my $self = shift;
 
     if ($self->{ignore}{scalar caller}) {
-        return $self->unescaped_string;
+        return $self->_hsv_unescaped_string;
     }
 
     return join '', map +(
@@ -52,13 +61,13 @@ sub escaped_string {
     ), @{$self->{parts}};
 }
 
-sub unescaped_string {
+sub _hsv_unescaped_string {
     my $self = shift;
 
     return join '', map $_->[0], @{$self->{parts}};
 }
 
-sub dot {
+sub _hsv_dot {
     my ($self, $str, $prefix) = @_;
 
     return $self unless $str;
@@ -80,7 +89,7 @@ sub dot {
     return ref($self)->new(@parts, { ignore => $self->{ignore} });
 }
 
-sub is_true {
+sub _hsv_is_true {
     my ($self) = @_;
     return 1 if grep length($_), map $_->[0], @{$self->{parts}};
 }
