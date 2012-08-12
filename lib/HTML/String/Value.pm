@@ -8,8 +8,6 @@ use Data::Munge;
 use overload
     '""'   => 'escaped_string',
     '.'    => 'dot',
-    '.='   => 'dot_equals',
-    '='    => 'clone',
 
     fallback => 1,
 ;
@@ -73,28 +71,6 @@ sub dot {
     }
 
     return ref($self)->new(@parts);
-}
-
-sub dot_equals {
-    my ($self, $str, $prefix) = @_;
-
-    return $self unless $str;
-
-    my @new_parts = (
-        $str->$_isa(__PACKAGE__)
-            ? @{$str->{parts}}
-            : [ $str, 1 ]
-    );
-
-    push @{$self->{parts}}, @new_parts;
-
-    return $self;
-}
-
-sub clone {
-    my $self = shift;
-
-    return ref($self)->new(@{$self->{parts}});
 }
 
 sub ref { '' }
