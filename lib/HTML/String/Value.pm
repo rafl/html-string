@@ -96,4 +96,6 @@ sub _hsv_is_true {
 
 sub ref { '' }
 
+sub DESTROY { }
+
 1;
