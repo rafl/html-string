@@ -5,39 +5,11 @@ use UNIVERSAL::ref;
 use Safe::Isa;
 use Data::Munge;
 
-sub op_factory {
-    my ($op) = @_;
-
-    return eval q|sub {
-        my ($self, $str) = @_;
-
-        if ( $str->$_isa(__PACKAGE__) ) {
-            return $self->unescaped_string | . $op . q| $str->unescaped_string;
-        }
-        else {
-            return $self->unescaped_string | . $op . q| $str;
-        }
-    }|;
-}
-
 use overload
     '""'   => 'escaped_string',
     '.'    => 'dot',
     '.='   => 'dot_equals',
     '='    => 'clone',
-
-    'cmp' => op_factory('cmp'),
-    'eq'  => op_factory('eq'),
-    '<=>' => op_factory('<=>'),
-    '=='  => op_factory('=='),
-    '%'   => op_factory('%'),
-    '+'   => op_factory('+'),
-    '-'   => op_factory('-'),
-    '*'   => op_factory('*'),
-    '/'   => op_factory('/'),
-    '**'  => op_factory('**'),
-    '>>'  => op_factory('>>'),
-    '<<'  => op_factory('<<'),
 
     fallback => 1,
 ;
