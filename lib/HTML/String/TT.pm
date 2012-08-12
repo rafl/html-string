@@ -2,6 +2,15 @@ package HTML::String::TT;
 
 use strictures 1;
 
+BEGIN {
+    if ($INC{"Template.pm"} and !$INC{"UNIVERSAL/ref.pm"}) {
+        warn "Template was loaded before we could load UNIVERSAL::ref"
+             ." - this means you're probably going to get weird errors."
+             ." To avoid this, use HTML::String::TT before loading Template."
+    }
+    require UNIVERSAL::ref;
+}
+
 use HTML::String;
 use HTML::String::TT::Directive;
 use Safe::Isa;

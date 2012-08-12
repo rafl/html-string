@@ -1,6 +1,7 @@
 package HTML::String::Value;
 
 use strictures 1;
+use UNIVERSAL::ref;
 use Safe::Isa;
 use Data::Munge;
 
@@ -123,5 +124,7 @@ sub clone {
 
     return ref($self)->new(@{$self->{parts}});
 }
+
+sub ref { '' }
 
 1;
