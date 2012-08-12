@@ -8,12 +8,15 @@ use Data::Munge;
 use overload
     '""'   => 'escaped_string',
     '.'    => 'dot',
+    'bool' => 'is_true',
 
     fallback => 1,
 ;
 
 sub new {
     my ($class, @raw_parts) = @_;
+
+    my $opts = (ref($raw_parts[-1]) eq 'HASH') ? pop(@raw_parts) : {};
 
     my @parts = map {
         if (ref($_) eq 'ARRAY') {
@@ -25,13 +28,17 @@ sub new {
         }
     } @raw_parts;
 
-    my $self = bless { parts => \@parts }, $class;
+    my $self = bless { parts => \@parts, %$opts }, $class;
 
     return $self;
 }
 
 sub escaped_string {
     my $self = shift;
+
+    if ($self->{ignore}{scalar caller}) {
+        return $self->unescaped_string;
+    }
 
     return join '', map +(
         $_->[1]
@@ -70,7 +77,12 @@ sub dot {
         push @parts, @new_parts;
     }
 
-    return ref($self)->new(@parts);
+    return ref($self)->new(@parts, { ignore => $self->{ignore} });
+}
+
+sub is_true {
+    my ($self) = @_;
+    return 1 if grep length($_), map $_->[0], @{$self->{parts}};
 }
 
 sub ref { '' }
