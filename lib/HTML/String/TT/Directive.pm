@@ -7,7 +7,7 @@ use base qw(Template::Directive);
 
 sub template {
     return byval {
-        s/sub {/sub { package HTML::String::TT::_TMPL; use HTML::String::Overload { ignore => { q{Template::Provider} => 1, q{Template::Directive} => 1, q{Template::Document} => 1 } };/;
+        s/sub {/sub { package HTML::String::TT::_TMPL; use HTML::String::Overload { ignore => { q{Template::Provider} => 1, q{Template::Directive} => 1, q{Template::Document} => 1, q{Template::Plugins} => 1 } };/;
     } Template::Directive::pad(shift->SUPER::template(@_), 2);
 }
 
