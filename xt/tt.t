@@ -28,6 +28,8 @@ is(
     '<tag>Hi <bob></tag>',
 );
 
+# Check we aren't nailed by https://rt.perl.org/rt3/Ticket/Display.html?id=49594
+
 is(
     do_tt('<foo>"$bar"</foo>'."\n"),
     '<foo>"$bar"</foo>'."\n"

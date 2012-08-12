@@ -11,10 +11,14 @@ sub template {
     } Template::Directive::pad(shift->SUPER::template(@_), 2);
 }
 
+# TT code does &text(), no idea why
+
 sub textblock {
     my ($self, $text) = @_;
     return $Template::Directive::OUTPUT.' '.$self->text($text).';';
 }
+
+# https://rt.perl.org/rt3/Ticket/Display.html?id=49594
 
 sub text {
     my ($class, $text) = @_;
