@@ -28,4 +28,9 @@ is(
     '<tag>Hi <bob></tag>',
 );
 
+is(
+    do_tt('<foo>"$bar"</foo>'."\n"),
+    '<foo>"$bar"</foo>'."\n"
+);
+
 done_testing;

@@ -19,7 +19,7 @@ sub textblock {
 sub text {
     my ($class, $text) = @_;
     for ($text) {
-        s/(["\$\@\\])/\\$1/g;
+        s/(["\$\@\\])/"."\\$1"."/g;
         s/\n/"."\\n"."/g;
     }
     return '"' . $text . '"';
