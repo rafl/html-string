@@ -25,7 +25,7 @@ $three .= html('</tag>');
 is("$three", '<tag>Hi &lt;bob&gt;</tag>');
 
 my $four; {
-  use HTML::String::Overload { ignore => { lies => 1 } };
+  use HTML::String::Overload { ignore => { non_existant_package_name => 1 } };
 
   #$four = "<tag>".$hi."</tag>\n";
   $four = "<tag>$hi</tag>"."\n";
