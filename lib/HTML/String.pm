@@ -30,7 +30,7 @@ HTML::String - mark strings as HTML to get auto-escaping
   
   my $html = html('<h1>').$not_html.html('</h1>');
   
-  print html($html); # <h1>Hello, Bob &quot; Jake</h1>
+  print html($html); # <h1>Hello, Bob &amp; Jake</h1>
 
 or, alternatively,
 
@@ -43,7 +43,7 @@ or, alternatively,
     "<h1>${not_html}</h1>";
   }
   
-  print html($html); # <h1>Hello, Bob &quot; Jake</h1>
+  print html($html); # <h1>Hello, Bob &amp; Jake</h1>
 
 (but see the L<HTML::String::Overload> documentation for details and caveats).
 

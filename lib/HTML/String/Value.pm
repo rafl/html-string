@@ -153,7 +153,7 @@ Each entry in @parts consists of one of:
 
   [ 'some text that will not be escaped', 0 ]
 
-  [ 'text that you DO want to be scaped', 1 ]
+  [ 'text that you DO want to be escaped', 1 ]
 
   $existing_html_string_value
 
