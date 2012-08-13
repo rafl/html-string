@@ -1,10 +1,13 @@
 use strict;
-use warnings;
+use warnings FATAL => 'all';
 use ExtUtils::MakeMaker;
+
+(do 'maint/Makefile.PL.include' or die $@) unless -f 'META.yml';
+
 
 WriteMakefile(
   NAME => 'HTML-String',
-  VERSION => '1.0',
+  VERSION_FROM => 'lib/HTML/String.pm',
   PREREQ_PM => {
     'Safe::Isa' => 1,
     'Data::Munge' => '0.04',

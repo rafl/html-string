@@ -4,6 +4,10 @@ use strictures 1;
 use HTML::String::Value;
 use Exporter 'import';
 
+our $VERSION = '1.000000'; # 1.0.0
+
+$VERSION = eval $VERSION;
+
 our @EXPORT = qw(html);
 
 sub html {
