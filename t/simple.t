@@ -47,4 +47,12 @@ is(html('MyPkg')->new, 'foo');
 
 is(html('MyPkg')->load, 'bar');
 
+# Test that all characters that should be escaped are escaped
+
+my $raw_characters = q{<>&"'};
+my $expected_output = q{<tag>&lt;&gt;&amp;&quot;&#39;</tag>};
+my $html = html('<tag>').$raw_characters.html('</tag>');
+is($html, $expected_output);
+
+
 done_testing;

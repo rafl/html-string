@@ -118,6 +118,19 @@ L<HTML::String::Overload> for more details.
 
 For integration with L<Template Toolkit|Template>, see L<HTML::String::TT>.
 
+=head1 CHARACTERS THAT WILL BE ESCAPED
+
+HTML::String concerns itself with characters that have special meaning in
+HTML. Those which begin and end tags (< and >), those which begin an entity
+(&) and those which delimit attribute values (" and '). It outputs them
+in a fashion compatible with HTML 4 and newer and all versions of XHTML
+(assuming support for named entities in the parser). There are no known
+incompatibilities with browsers. 
+
+HTML::String does not concern itself with other characters, it is assumed
+that HTML documents will be marked with a suitable character encoding via
+a Content-Type HTTP header and/or a meta element.
+
 =head1 EXPORTS
 
 =head2 html
@@ -144,7 +157,7 @@ mst - Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>
 
 =head1 CONTRIBUTORS
 
-None yet - maybe this software is perfect! (ahahahahahahahahaha)
+dorward - David Dorward (cpan:DORWARD) <david@dorward.me.uk>
 
 =head1 COPYRIGHT
 

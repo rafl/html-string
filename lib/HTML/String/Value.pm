@@ -56,6 +56,7 @@ sub _hsv_escaped_string {
                 s/</&lt;/g;
                 s/>/&gt;/g;
                 s/"/&quot;/g;
+                s/'/&#39;/g;
               } $_->[0]
             : $_->[0]
     ), @{$self->{parts}};
