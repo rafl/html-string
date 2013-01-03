@@ -3,6 +3,7 @@ package HTML::String::Value;
 use strictures 1;
 use UNIVERSAL::ref;
 use Safe::Isa;
+use Scalar::Util qw(blessed);
 use Data::Munge;
 
 use overload
@@ -14,7 +15,10 @@ use overload
 ;
 
 sub new {
-    if (ref($_[0])) { my $c = shift; return $c->_hsv_unescaped_string->new(@_) }
+    if (blessed($_[0])) {
+        my $c = shift;
+        return $c->_hsv_unescaped_string->new(@_);
+    }
     my ($class, @raw_parts) = @_;
 
     my $opts = (ref($raw_parts[-1]) eq 'HASH') ? pop(@raw_parts) : {};
@@ -87,7 +91,7 @@ sub _hsv_dot {
         push @parts, @new_parts;
     }
 
-    return ref($self)->new(@parts, { ignore => $self->{ignore} });
+    return bless({ %$self, parts => \@parts }, blessed($self));
 }
 
 sub _hsv_is_true {
