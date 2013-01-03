@@ -95,10 +95,17 @@ sub _hsv_is_true {
     return 1 if grep $_, map $_->[0], @{$self->{parts}};
 }
 
+# we need to local $@ here because some modules (cough, TT, cough)
+# will do a 'die $@ if $@' without realising that it wasn't their eval
+# that set it
+
 sub isa {
     my $self = shift;
     return (
-        eval { $self->_hsv_unescaped_string->isa(@_) }
+        do {
+            local $@;
+            eval { blessed($self) and $self->_hsv_unescaped_string->isa(@_) }
+        }
         or $self->SUPER::isa(@_)
     );
 }
@@ -106,7 +113,10 @@ sub isa {
 sub can {
     my $self = shift;
     return (
-        eval { $self->_hsv_unescaped_string->can(@_) }
+        do {
+            local $@;
+            eval { blessed($self) and $self->_hsv_unescaped_string->isa(@_) }
+        }
         or $self->SUPER::can(@_)
     );
 }

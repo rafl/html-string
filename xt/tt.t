@@ -35,4 +35,13 @@ is(
     '<foo>"$bar"</foo>'."\n"
 );
 
+is(
+    do_tt(
+        '[% FOREACH item IN items %][% item %][% END %]',
+        { items => [ '<script>alert("lalala")</script>', '-> & so "on" <-' ] }
+    ),
+    '&lt;script&gt;alert(&quot;lalala&quot;)&lt;/script&gt;'          
+        .'-&gt; &amp; so &quot;on&quot; &lt;-'
+);
+
 done_testing;

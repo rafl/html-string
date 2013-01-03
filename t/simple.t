@@ -54,5 +54,8 @@ my $expected_output = q{<tag>&lt;&gt;&amp;&quot;&#39;</tag>};
 my $html = html('<tag>').$raw_characters.html('</tag>');
 is($html, $expected_output);
 
+ok(HTML::String::Value->isa('HTML::String::Value'), 'isa on class ok');
+
+is($@, '', '$@ not set by check');
 
 done_testing;
