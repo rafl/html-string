@@ -1,3 +1,4 @@
+1.000001 - 2013-01-03
   - Localize $@ in isa and can in case of modules that mishandle eval {}
   - Support for single quotes (' to &#39;)
 
