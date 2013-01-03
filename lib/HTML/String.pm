@@ -4,7 +4,7 @@ use strictures 1;
 use HTML::String::Value;
 use Exporter 'import';
 
-our $VERSION = '1.000001'; # 1.0.1
+our $VERSION = '1.000002'; # 1.0.2
 
 $VERSION = eval $VERSION;
 
