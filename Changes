@@ -1,3 +1,4 @@
+1.000002 - 2013-01-03
   - Optimise _hsv_dot since it gets called heavily by HTML::String::TT
 
 1.000001 - 2013-01-03
