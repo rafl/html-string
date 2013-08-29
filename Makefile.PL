@@ -6,7 +6,7 @@ use ExtUtils::MakeMaker;
 
 
 WriteMakefile(
-  NAME => 'HTML-String',
+  NAME => 'HTML::String',
   VERSION_FROM => 'lib/HTML/String.pm',
   PREREQ_PM => {
     'Safe::Isa' => 1,
