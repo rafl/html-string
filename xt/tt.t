@@ -44,4 +44,6 @@ is(
         .'-&gt; &amp; so &quot;on&quot; &lt;-'
 );
 
+is( do_tt('"0"', {}), '"0"' );
+
 done_testing;
