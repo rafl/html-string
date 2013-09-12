@@ -58,4 +58,9 @@ ok(HTML::String::Value->isa('HTML::String::Value'), 'isa on class ok');
 
 is($@, '', '$@ not set by check');
 
+is do {
+    use HTML::String::Overload;
+    '' . '0'
+}, '0', 'concatenating strings which are false in boolean context';
+
 done_testing;
